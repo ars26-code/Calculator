@@ -1,0 +1,58 @@
+import tkinter as tk  
+from tkinter import messagebox  
+
+# Function to perform arithmetic operations  
+def calculate():  
+    try:  
+        num1 = float(entry_num1.get())  
+        num2 = float(entry_num2.get())  
+        operation = operation_var.get()  
+
+        if operation == "Add":  
+            result = num1 + num2  
+        elif operation == "Subtract":  
+            result = num1 - num2  
+        elif operation == "Multiply":  
+            result = num1 * num2  
+        elif operation == "Divide":  
+            if num2 == 0:  
+                raise ValueError("Cannot divide by zero.")  
+            result = num1 / num2  
+        else:  
+            raise ValueError("Invalid operation selected.")  
+
+        result_label.config(text=f"Result: {result}")  
+
+    except ValueError as e:  
+        messagebox.showerror("Error", str(e))  
+
+# Create the main application window  
+root = tk.Tk()  
+root.title("Simple Calculator")  
+
+# User input for the first number  
+tk.Label(root, text="Enter first number:").pack()  
+entry_num1 = tk.Entry(root)  
+entry_num1.pack()  
+
+# User input for the second number  
+tk.Label(root, text="Enter second number:").pack()  
+entry_num2 = tk.Entry(root)  
+entry_num2.pack()  
+
+# Dropdown for selecting operation  
+operation_var = tk.StringVar(value="Add")  
+tk.Label(root, text="Select operation:").pack()  
+operation_menu = tk.OptionMenu(root, operation_var, "Add", "Subtract", "Multiply", "Divide")  
+operation_menu.pack()  
+
+# Calculate button  
+calculate_button = tk.Button(root, text="Calculate", command=calculate)  
+calculate_button.pack()  
+
+# Label to display the result  
+result_label = tk.Label(root, text="Result: ")  
+result_label.pack()  
+
+# Start the Tkinter event loop  
+root.mainloop()
